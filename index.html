@@ -2,33 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>SaiSpec — AI Governance & Compliance Runtime</title>
+  <title>SaiSpec — Governance Runtime for AI Agents</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SaiSpec is the governance-first runtime for AI agents, providing auditable traceability, real-time authority checks, and enterprise compliance for autonomous systems." />
+  <meta name="description" content="SaiSpec is an open-source, governance-first runtime for AI agents, enforcing permissions, accountability, human oversight, and auditability at execution time." />
 
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Roboto+Mono&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --bg: #0b0e14;
       --panel: #121826;
-      --panel-soft: rgba(18,24,38,0.6);
       --text: #e6eaf2;
       --muted: #9aa4bf;
       --accent: #FF9800;
-      --danger: #ff6b6b;
       --border: rgba(255,255,255,0.08);
-
-      --color-truth: #00bcd4;
-      --color-wisdom: #d4ac00;
-      --color-conduct: var(--accent);
+      --danger: #ff6b6b;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      font-family: Inter, system-ui, sans-serif;
+    }
 
     body {
       margin: 0;
-      font-family: Inter, system-ui, sans-serif;
       background: radial-gradient(1200px 600px at 50% -20%, #46391a 0%, var(--bg) 60%);
       color: var(--text);
     }
@@ -38,72 +35,51 @@
       text-decoration: none;
     }
 
-    /* ---------- LAYOUT ---------- */
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    section {
-      padding: 100px 0;
-    }
-
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 80px 0;
-    }
-
-    h1 {
-      font-size: clamp(40px, 5vw, 64px);
-      line-height: 1.05;
-      margin-bottom: 24px;
-    }
-
-    h2 {
-      font-size: 36px;
-      margin-bottom: 16px;
-      text-align: center;
-    }
-
-    p {
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .section-sub {
-      max-width: 720px;
-      margin: 0 auto 60px;
-      text-align: center;
-    }
-
     /* ---------- HERO ---------- */
 
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
+      justify-content: center;
+      padding: 80px 24px;
+      perspective: 1200px;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 60px;
-      align-items: center;
+    .hero-card {
+      max-width: 1100px;
+      width: 100%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 64px;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+      transform-style: preserve-3d;
     }
 
     .badge {
       display: inline-block;
       padding: 6px 12px;
       border-radius: 999px;
-      background: rgba(255,152,0,0.15);
+      background: rgba(255, 152, 0, 0.15);
       color: var(--accent);
       font-size: 12px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      margin: 0 0 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      max-width: 720px;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--muted);
     }
 
     .cta-row {
@@ -114,7 +90,7 @@
     }
 
     .btn {
-      padding: 14px 22px;
+      padding: 14px 20px;
       border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--panel);
@@ -132,199 +108,229 @@
 
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(255,152,0,0.35);
+      box-shadow: 0 12px 30px rgba(255,152,0,0.35);
     }
 
-    .hero-panel {
-      background: var(--panel-soft);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px;
-      font-family: Roboto Mono, monospace;
-      font-size: 13px;
-      line-height: 1.6;
+    /* ---------- SECTIONS ---------- */
+
+    section {
+      padding: 100px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    /* ---------- GRID / CARDS ---------- */
+    h2 {
+      font-size: 36px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .section-sub {
+      max-width: 720px;
+      margin: 0 auto 48px;
+      text-align: center;
+      color: var(--muted);
+    }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 28px;
+      gap: 24px;
     }
 
     .card {
       background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
       border: 1px solid var(--border);
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 28px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
     }
 
     .card h3 {
       margin-top: 0;
-      margin-bottom: 10px;
-      font-size: 18px;
     }
 
-    /* ---------- VALUE PILLARS ---------- */
-
-    .value-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
-      gap: 32px;
-    }
-
-    .value-card {
-      padding: 32px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      background: var(--panel);
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
     }
 
     /* ---------- TERMINAL ---------- */
 
     .terminal {
-      max-width: 900px;
-      margin: 0 auto;
       background: #05070c;
       border-radius: 20px;
       border: 1px solid var(--border);
-      padding: 28px;
+      padding: 24px;
       font-family: Roboto Mono, monospace;
       font-size: 13px;
-      line-height: 1.7;
+      line-height: 1.6;
       color: #d1d7ff;
+      max-width: 900px;
+      margin: 40px auto;
     }
 
     .ok { color: var(--accent); }
     .warn { color: var(--danger); }
 
-    /* ---------- WAITLIST ---------- */
-
-    .waitlist {
-      background: var(--panel);
-      border-top: 1px solid var(--border);
-      padding: 80px 24px;
-      text-align: center;
-    }
-
-    .waitlist input {
-      padding: 12px 16px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      width: 280px;
-      margin-right: 10px;
-    }
-
     footer {
-      padding: 40px 24px;
+      padding: 60px 24px;
       text-align: center;
-      font-size: 13px;
       color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
     }
 
-    @media (max-width: 900px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
+    .tilt {
+      transition: transform 0.2s ease;
     }
   </style>
 </head>
 
 <body>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="container hero-grid">
-    <div>
-      <span class="badge">Enterprise Governance for Autonomous AI</span>
-      <h1>SaiSpec<br/>The Runtime Control Plane for Agents</h1>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-card tilt">
+      <span class="badge">Open Source AI Governance Runtime</span>
+      <h1>SaiSpec</h1>
       <p>
-        SaiSpec is the governance-first runtime that transforms high-risk autonomous agents into auditable,
-        enterprise-ready systems. We enforce authority, accountability, and traceability at the point of action.
+        SaiSpec is a governance-first runtime for AI agents.
+        It enforces permissions, accountability, human oversight, and auditability
+        at the moment an agent attempts to take an action.
       </p>
 
       <div class="cta-row">
-        <a class="btn primary" href="https://pypi.org/project/saispec/" target="_blank">pip install saispec (v0.1 Live)</a>
-        <a class="btn" href="#waitlist">Join SaaS Waitlist</a>
-        <a class="btn" href="https://github.com/SaiSpec-Labs/saispec" target="_blank">View on GitHub</a>
+        <a class="btn primary" href="https://pypi.org/project/saispec/" target="_blank">
+          pip install saispec
+        </a>
+        <a class="btn" href="https://github.com/SaiSpec-Labs/saispec" target="_blank">
+          View on GitHub
+        </a>
       </div>
     </div>
-
-    <div class="hero-panel">
-      🛡️ SaiSpec Runtime Initialized<br/>
-      Context: user_123<br/>
-      Permissions: finance_access<br/><br/>
-      [OK] transfer_funds<br/>
-      [BLOCK] delete_account (missing admin_access)<br/><br/>
-      Governance Score: 40 / 100
-    </div>
   </div>
-</section>
 
-<div class="divider"></div>
+  <!-- WHY -->
+  <section>
+    <h2>Why SaiSpec Exists</h2>
+    <p class="section-sub">
+      AI agents increasingly act on behalf of users — calling tools, modifying systems,
+      and triggering irreversible changes. Most frameworks optimize for capability,
+      not control.
+    </p>
 
-<!-- VALUE PROPS -->
-<section class="container">
-  <h2>Solving the Three Critical Risks of Agentic Systems</h2>
-  <p class="section-sub">
-    SaiSpec moves agent development from high-risk guesswork to high-reliability engineering by addressing
-    operational, legal, and compliance exposure in real-time.
-  </p>
+    <div class="grid">
+      <div class="card">
+        <h3>No Sense of Impact</h3>
+        <p>
+          Reading data and deleting data are treated as equivalent actions.
+          Systems lack escalation paths for high-risk decisions.
+        </p>
+      </div>
 
-  <div class="value-grid">
-    <div class="value-card">
-      <h3>Mitigate Audit Risk</h3>
-      <p>Provides immutable traceability for every thought and action. Generate audit-ready reports post-event.</p>
+      <div class="card">
+        <h3>No Runtime Authority</h3>
+        <p>
+          Agents are trusted implicitly. Permissions are assumed,
+          not enforced at execution time.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>No Accountability</h3>
+        <p>
+          When something goes wrong, there is no clear record of why
+          an action happened or who approved it.
+        </p>
+      </div>
     </div>
-    <div class="value-card">
-      <h3>Enforce Accountability</h3>
-      <p>Blocks high-stakes actions taken without justification, preventing irrational or looped execution.</p>
+  </section>
+
+  <!-- WHAT IS LIVE -->
+  <section>
+    <h2>What’s Live Today</h2>
+    <p class="section-sub">
+      SaiSpec is available as a Python library you can wrap around any agent loop
+      to introduce governance without changing how your agent reasons.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Decision Classes</h3>
+        <p>
+          Actions are explicitly classified by impact:
+          informational, advisory, decisive, or irreversible.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Authority Enforcement</h3>
+        <p>
+          Role-based permissions are checked before tool execution,
+          not after failures.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Accountability Guards</h3>
+        <p>
+          High-risk actions require explicit justification.
+          Missing reasoning blocks execution.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Human-in-the-Loop</h3>
+        <p>
+          Irreversible actions are stopped unless a human explicitly approves them.
+        </p>
+      </div>
     </div>
-    <div class="value-card">
-      <h3>Guarantee Authority</h3>
-      <p>Ensures agents only use tools they are explicitly permissioned for.</p>
+  </section>
+
+  <!-- TERMINAL -->
+  <section>
+    <h2>Audit-Friendly Runtime Trace</h2>
+    <p class="section-sub">
+      SaiSpec produces structured, inspectable timelines instead of opaque logs.
+    </p>
+
+    <div class="terminal">
+      🛡️ SAISPEC GOVERNANCE ACTIVE<br/>
+      Context: user_123 | perms=['finance_access']<br/><br/>
+
+      <span class="ok">[OK]</span> search_orders → informational<br/>
+      <span class="warn">[BLOCK]</span> delete_account → missing admin permission<br/>
+      <span class="warn">[BLOCK]</span> transfer_funds → missing justification<br/><br/>
+
+      --- SESSION REPORT ---<br/>
+      Status: FAILED<br/>
+      Governance Score: 40 / 100<br/>
+      Violations: 2
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
+  <!-- FOOTER -->
+  <footer>
+    © 2025 SaiSpec Labs · Open-source and exploratory
+  </footer>
 
-<!-- TERMINAL -->
-<section class="container">
-  <h2>Terminal Output: The Audit Log</h2>
-  <p class="section-sub">
-    SaiSpec enforces policy, explains why an action was blocked, and leaves a permanent audit trail.
-  </p>
-
-  <div class="terminal">
-    <span class="ok">[OK]</span> transfer_funds → Allowed<br/>
-    <span class="warn">[BLOCK]</span> delete_account → Unauthorized (missing admin_access)<br/>
-    <span class="warn">[BLOCK]</span> transfer_funds → Missing justification<br/><br/>
-    --- GOVERNANCE REPORT ---<br/>
-    Status: FAILED<br/>
-    Score: 40 / 100<br/>
-    Violations: 3
-  </div>
-</section>
-
-<!-- WAITLIST -->
-<section class="waitlist" id="waitlist">
-  <h2>Join the SaaS Waitlist</h2>
-  <p class="section-sub">Get early access to the enterprise control plane.</p>
-
-  <form action="YOUR_WAITLIST_FORM_ENDPOINT" method="POST">
-    <input type="email" name="email" placeholder="Work email" required />
-    <button class="btn primary" type="submit">Join Waitlist</button>
-  </form>
-</section>
-
-<footer>
-  © 2025 SaiSpec Labs · Governance for Autonomous Systems
-</footer>
+  <script>
+    document.querySelectorAll('.tilt').forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        el.style.transform =
+          `rotateX(${((y/r.height)-0.5)*-6}deg) rotateY(${((x/r.width)-0.5)*6}deg)`;
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = 'rotateX(0deg) rotateY(0deg)';
+      });
+    });
+  </script>
 
 </body>
 </html>
